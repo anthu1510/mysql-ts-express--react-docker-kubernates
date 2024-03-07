@@ -24,7 +24,9 @@ const loginSchema = z
   .strict();
 
 const authRequestSchema = z.object({
-  userId: z.number()
+  userId: z.number().min(1),
+  name: z.string().min(1),
+  roleId: z.number().min(1),
 }).strict();
 
 export const UserSchema = userSchema.omit({ password: true });

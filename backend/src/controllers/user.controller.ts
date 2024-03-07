@@ -76,8 +76,8 @@ class UserController {
         } else {
           const response = {
             status: true,
-            accessToken: generateaccessToken({ userId: isValidUser.id }),
-            refreshToken: generaterefreshToken({ userId: isValidUser.id })
+            accessToken: generateaccessToken({ userId: isValidUser.id, name: isValidUser.name, roleId: isValidUser.roleId}),
+            refreshToken: generaterefreshToken({ userId: isValidUser.id, name: isValidUser.name, roleId: isValidUser.roleId})
           };
           res.json(response);
         }

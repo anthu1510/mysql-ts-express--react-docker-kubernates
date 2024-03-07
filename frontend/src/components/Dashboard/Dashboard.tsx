@@ -1,17 +1,21 @@
 import React from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie"
 
 const { Header, Content, Footer } = Layout;
 
-const items = new Array(15).fill(null).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}));
-
-const App: React.FC = () => {
+const Dashboard: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    navigate('/')
+  }
 
   return (
     <Layout>
@@ -21,9 +25,13 @@ const App: React.FC = () => {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['2']}
-          items={items}
           style={{ flex: 1, minWidth: 0 }}
-        />
+        >
+          <Link to="/dashboard/home">
+            <Menu.Item>Home</Menu.Item>
+          </Link>
+          <Menu.Item onClick={handleLogout}>Logout</Menu.Item>
+        </Menu>
       </Header>
       <Content style={{ padding: '0 48px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -39,7 +47,7 @@ const App: React.FC = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+         <Outlet/>
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
@@ -49,4 +57,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Dashboard;
