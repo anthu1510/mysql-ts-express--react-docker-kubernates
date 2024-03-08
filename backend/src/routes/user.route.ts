@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { validateRequest } from 'zod-express-middleware';
 import userController from '../controllers/user.controller';
-import { UserCreateInputSchema, UserLoginInputSchema, UserGetbyIdSchema } from '../validations/user.validation';
+import { UserCreateInputSchema, UserLoginInputSchema, UserGetbyIdSchema } from '../schemas/user.schema';
 import { authenticateJWT } from '../middlewares/jwt';
 
 const router = Router();

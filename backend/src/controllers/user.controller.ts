@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { db } from '../databases';
 import hashPwd from 'password-hash';
 import { AuthRequest, generateaccessToken, generaterefreshToken } from '../middlewares/jwt';
-import { IUserCreateInput, ILoginResponse, ILoginRequestBody, IUserGetbyIdSchema, IUser, IUsers } from '../validations/user.validation';
+import { IUserCreateInput, ILoginResponse, ILoginRequestBody, IUser, IUsers, IUserGetbyIdSchema } from '../types';
 
 
 
@@ -29,7 +29,7 @@ class UserController {
     }
   }
 
-  async getById(req: AuthRequest, res: Response<IUser>, next: NextFunction) {
+  async getById(req: Request<IUserGetbyIdSchema>, res: Response<IUser>, next: NextFunction) {
     try {
       const user = await db.users.findUnique({where: {id: Number(req.params.id)}, select: {
         id: true,
