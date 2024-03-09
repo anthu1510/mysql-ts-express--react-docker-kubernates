@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { db } from '../databases';
 import hashPwd from 'password-hash';
-import { generateaccessToken, generaterefreshToken } from '../middlewares/jwt';
+import { generateTokens } from '../middlewares/jwt';
 import { IUserCreateInput, ILoginResponse, ILoginRequestBody, IUser, IUsers, IUserGetbyIdSchema } from '../types';
 
 class UserController {
@@ -74,19 +74,17 @@ class UserController {
         if (!isValidDetail) {
           throw new Error('Password not matched');
         } else {
+          const tokenPayload = {
+            userId: isValidUser.id,
+            name: isValidUser.name,
+            roleId: isValidUser.roleId
+          }
           const response = {
             status: true,
-            accessToken: generateaccessToken({
-              userId: isValidUser.id,
-              name: isValidUser.name,
-              roleId: isValidUser.roleId
-            }),
-            refreshToken: generaterefreshToken({
-              userId: isValidUser.id,
-              name: isValidUser.name,
-              roleId: isValidUser.roleId
-            })
+           ...generateTokens(tokenPayload)
           };
+          res.cookie('accessToken', response.accessToken, { maxAge: 900000, httpOnly: true });
+          res.cookie('refreshToken', response.refreshToken, { maxAge: 900000, httpOnly: true });
           res.json(response);
         }
       }
