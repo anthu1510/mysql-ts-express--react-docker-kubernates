@@ -83,8 +83,8 @@ class UserController {
             status: true,
            ...generateTokens(tokenPayload)
           };
-          res.cookie('accessToken', response.accessToken, { maxAge: 900000, httpOnly: true });
-          res.cookie('refreshToken', response.refreshToken, { maxAge: 900000, httpOnly: true });
+          res.cookie('accessToken', response.accessToken, { maxAge: Number(process.env.COOKIE_EXPIRE_TIME) });
+          res.cookie('refreshToken', response.refreshToken, { maxAge: Number(process.env.COOKIE_EXPIRE_TIME) });
           res.json(response);
         }
       }

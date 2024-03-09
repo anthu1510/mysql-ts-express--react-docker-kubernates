@@ -22,8 +22,8 @@ export default function Login() {
       }
       const isLoggedIn = await axios.post('/users/login', data);
       if(isLoggedIn.data.status) {
-        Cookies.set('accessToken', isLoggedIn.data.accessToken, { expires: 1, secure: true });
-        Cookies.set('refreshToken', isLoggedIn.data.refreshToken, { expires: 7, secure: true });
+        // Cookies.set('accessToken', isLoggedIn.data.accessToken, { expires: 1, secure: true });
+        // Cookies.set('refreshToken', isLoggedIn.data.refreshToken, { expires: 7, secure: true });
         const decoded = jwtDecode<IUser>(isLoggedIn.data.accessToken)
         dispatch(login({userId: decoded.userId, name: decoded.name, roleId: decoded.roleId}))
         navigate("/dashboard");
