@@ -1,11 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 import { db } from '../databases';
 import hashPwd from 'password-hash';
-import { AuthRequest, generateaccessToken, generaterefreshToken } from '../middlewares/jwt';
+import { generateaccessToken, generaterefreshToken } from '../middlewares/jwt';
 import { IUserCreateInput, ILoginResponse, ILoginRequestBody, IUser, IUsers, IUserGetbyIdSchema } from '../types';
-
-
 
 class UserController {
   async getAll(req: Request, res: Response<IUsers>, next: NextFunction) {
@@ -31,17 +28,20 @@ class UserController {
 
   async getById(req: Request<IUserGetbyIdSchema>, res: Response<IUser>, next: NextFunction) {
     try {
-      const user = await db.users.findUnique({where: {id: Number(req.params.id)}, select: {
-        id: true,
-        roleId: true,
-        name: true,
-        email: true,
-        status: true,
-        createdAt: true,
-        updatedAt: true
-      }});
+      const user = await db.users.findUnique({
+        where: { id: Number(req.params.id) },
+        select: {
+          id: true,
+          roleId: true,
+          name: true,
+          email: true,
+          status: true,
+          createdAt: true,
+          updatedAt: true
+        }
+      });
 
-      if(user) res.json(user);
+      if (user) res.json(user);
     } catch (error) {
       if (error instanceof Error) {
         next(error);
@@ -76,8 +76,16 @@ class UserController {
         } else {
           const response = {
             status: true,
-            accessToken: generateaccessToken({ userId: isValidUser.id, name: isValidUser.name, roleId: isValidUser.roleId}),
-            refreshToken: generaterefreshToken({ userId: isValidUser.id, name: isValidUser.name, roleId: isValidUser.roleId})
+            accessToken: generateaccessToken({
+              userId: isValidUser.id,
+              name: isValidUser.name,
+              roleId: isValidUser.roleId
+            }),
+            refreshToken: generaterefreshToken({
+              userId: isValidUser.id,
+              name: isValidUser.name,
+              roleId: isValidUser.roleId
+            })
           };
           res.json(response);
         }
@@ -88,8 +96,6 @@ class UserController {
       }
     }
   }
-
-  
 }
 
 export default new UserController();

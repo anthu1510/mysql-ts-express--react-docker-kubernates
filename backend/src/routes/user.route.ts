@@ -7,7 +7,7 @@ import { authenticateJWT } from '../middlewares/jwt';
 const router = Router();
 
 router.get('/', userController.getAll);
-router.get('/:id', authenticateJWT, validateRequest({ params: UserGetbyIdSchema}), userController.getById);
+router.get('/:id', authenticateJWT, validateRequest({ params: UserGetbyIdSchema }), userController.getById);
 router.post('/', validateRequest({ body: UserCreateInputSchema }), userController.create);
 router.post('/login', validateRequest({ body: UserLoginInputSchema }), userController.login);
 

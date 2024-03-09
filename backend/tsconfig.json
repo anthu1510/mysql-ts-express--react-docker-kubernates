@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "lib": ["es5", "ES2018", "dom"],
+    "lib": ["ES2018", "dom"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    //"baseUrl": "src/",
-    "typeRoots": ["./src/types"],
     "resolveJsonModule": true,
+    "rootDir": "./src",
     "outDir": "./dist",
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
@@ -17,9 +16,8 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "declaration": true,
+    "skipLibCheck": true
   },
   "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "test/**/*.ts"]
+  "exclude": ["node_modules", "dist", "src/types/**/*","test/**/*.ts"]
 }
