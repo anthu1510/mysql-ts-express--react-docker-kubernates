@@ -2,7 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { routes } from '../routes';
-import { errorHandler } from '../middlewares/error.middleware';
+import * as errorMiddlewaare from '../middlewares/error.middleware';
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(cookieParser());
 routes(app);
 
 // Error Handler
-app.use(errorHandler);
+app.use(errorMiddlewaare.errorEndPointNotFound);
+app.use(errorMiddlewaare.errorHandler);
 
 export default app;

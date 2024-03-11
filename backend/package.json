@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
+    "predev": "npm run format",
     "build": "del-cli ./dist && npm run format && tsc",
     "test": "vitest",
     "start": "node dist/",
@@ -21,6 +22,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "envalid": "^8.0.0",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "password-hash": "^1.2.2",

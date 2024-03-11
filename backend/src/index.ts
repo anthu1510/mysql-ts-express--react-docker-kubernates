@@ -1,9 +1,9 @@
-import dotEnv from 'dotenv';
+import 'dotenv/config';
+import env from './utils/validateEnv';
 import http from 'http';
 import app from './app';
 
-dotEnv.config();
-const port: number = Number(process.env.PORT) || 7070;
+const port = env.PORT;
 const server = http.createServer(app);
 
 server.listen(port, () => {

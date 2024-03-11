@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import env from '../utils/validateEnv';
 import { db } from '../databases';
 import hashPwd from 'password-hash';
 import { generateTokens } from '../middlewares/jwt';
@@ -20,9 +21,7 @@ class UserController {
       });
       res.json(users);
     } catch (error) {
-      if (error instanceof Error) {
-        next(error);
-      }
+      next(error);
     }
   }
 
@@ -43,9 +42,7 @@ class UserController {
 
       if (user) res.json(user);
     } catch (error) {
-      if (error instanceof Error) {
-        next(error);
-      }
+      next(error);
     }
   }
 
@@ -57,9 +54,7 @@ class UserController {
       });
       res.json(user);
     } catch (error) {
-      if (error instanceof Error) {
-        next(error);
-      }
+      next(error);
     }
   }
 
@@ -68,30 +63,28 @@ class UserController {
       const { email, password }: ILoginRequestBody = req.body;
       const isValidUser = await db.users.findUnique({ where: { email } });
       if (!isValidUser) {
-        throw new Error('This email not is the Data source');
+        throw Error('This email not is the Data source');
       } else {
         const isValidDetail = hashPwd.verify(password, isValidUser?.password);
         if (!isValidDetail) {
-          throw new Error('Password not matched');
+          throw Error('Password not matched');
         } else {
           const tokenPayload = {
             userId: isValidUser.id,
             name: isValidUser.name,
             roleId: isValidUser.roleId
-          }
+          };
           const response = {
             status: true,
-           ...generateTokens(tokenPayload)
+            ...generateTokens(tokenPayload)
           };
-          res.cookie('accessToken', response.accessToken, { maxAge: Number(process.env.COOKIE_EXPIRE_TIME) });
-          res.cookie('refreshToken', response.refreshToken, { maxAge: Number(process.env.COOKIE_EXPIRE_TIME) });
+          res.cookie('accessToken', response.accessToken, { maxAge: env.COOKIE_EXPIRE_TIME });
+          res.cookie('refreshToken', response.refreshToken, { maxAge: env.COOKIE_EXPIRE_TIME });
           res.json(response);
         }
       }
     } catch (error) {
-      if (error instanceof Error) {
-        next(error);
-      }
+      next(error);
     }
   }
 }

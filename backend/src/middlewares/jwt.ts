@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import env from '../utils/validateEnv';
 import jwt from 'jsonwebtoken';
 import { IAuthRequest } from '../types';
 
@@ -12,11 +13,11 @@ export interface ITokens {
 }
 
 export const generateaccessToken = (payload: IAuthRequest): string => {
-  return jwt.sign(payload, String(process.env.ACCESS_TOKEN_SECRET), { expiresIn: '15m' });
+  return jwt.sign(payload, env.ACCESS_TOKEN_SECRET, { expiresIn: env.ACCESS_TOKEN_EXPIRE_TIME });
 };
 
 export const generaterefreshToken = (payload: IAuthRequest): string => {
-  return jwt.sign(payload, String(process.env.REFRESH_TOKEN_SECRET), { expiresIn: '7d' });
+  return jwt.sign(payload, env.REFRESH_TOKEN_SECRET, { expiresIn: env.REFRESH_TOKEN_EXPIRE_TIME });
 };
 
 export const generateTokens = (payload: IAuthRequest): ITokens => {
