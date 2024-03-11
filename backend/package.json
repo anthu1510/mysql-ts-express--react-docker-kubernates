@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "nodemon",
     "predev": "npm run format",
-    "build": "del-cli ./dist && npm run format && tsc",
+    "build": "del-cli ./dist && tsc",
     "test": "vitest",
     "start": "node dist/",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
-    "mig": "prisma migrate dev --name init && prisma generate",
+    "mig": "del-cli ./prisma/migrations && prisma migrate dev --name init && prisma generate",
     "postmig": "ts-node ./src/databases/seed.ts"
   },
   "keywords": [],
