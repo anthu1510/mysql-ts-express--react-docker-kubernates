@@ -1,4 +1,4 @@
-FROM node:20.11.1-alpine
+FROM node:20.11.1-alpine3.19
 
 WORKDIR /app
 
@@ -8,10 +8,12 @@ RUN npm i
 
 COPY . .
 
-RUN npm run build
+RUN npx prisma generate
 
-RUN prisma generate
+RUN npm run postmig
+
+RUN npm run build
 
 EXPOSE 5000
 
-CMD [ "npm" "start"]
+CMD npm start

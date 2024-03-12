@@ -10,9 +10,10 @@ const main = async () => {
       }
     });
     console.log('seed completed successfully...');
-  } catch (e) {
+  } catch (e: unknown) {
+   
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      throw e;
+      console.error(e);
     }
   }
 };
