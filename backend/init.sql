@@ -10,6 +10,9 @@ CREATE TABLE `Users_Roles` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+INSERT INTO `Users_Roles` (`id`, `roleName`, `status`, `createdAt`, `updatedAt`) VALUES
+(1,	'Admin',	'active',	'2024-03-13 07:29:51.000',  '2024-03-13 07:29:51.000');
+
 -- CreateTable
 CREATE TABLE `Users` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,

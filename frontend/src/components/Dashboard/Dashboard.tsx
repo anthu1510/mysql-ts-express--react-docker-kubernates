@@ -19,18 +19,17 @@ const Dashboard: React.FC = () => {
 
   return (
     <Layout>
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
+      <Header>
         <div className="demo-logo" />
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
-          style={{ flex: 1, minWidth: 0 }}
+          style={{ flex: 1 }}
         >
           <Link to="/dashboard/home">
             <Menu.Item>Home</Menu.Item>
           </Link>
-          <Menu.Item onClick={handleLogout}>Logout</Menu.Item>
+          <Menu.Item style={{float: 'right'}} onClick={handleLogout}>Logout</Menu.Item>
         </Menu>
       </Header>
       <Content style={{ padding: '0 48px' }}>

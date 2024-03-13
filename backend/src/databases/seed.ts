@@ -11,7 +11,6 @@ const main = async () => {
     });
     console.log('seed completed successfully...');
   } catch (e: unknown) {
-   
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       console.error(e);
     }
