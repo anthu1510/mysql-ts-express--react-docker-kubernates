@@ -9,6 +9,7 @@ services:
     environment: 
       MYSQL_ROOT_PASSWORD: rootpwd
       MYSQL_DATABASE: mern_db
+      DATABASE_URL: mysql://root:rootpwd@mysqldb:3306/mern_db
     ports:
       - 3307:3306
     volumes:
@@ -41,5 +42,9 @@ services:
     depends_on:
       - mysql
       - api
+
+networks:
+  api:
+  web:
     
    

@@ -8,6 +8,8 @@ RUN npm i
 
 COPY . .
 
+ENV DATABASE_URL=mysql://root:rootpwd@mysqldb:3306/mern_db
+
 RUN npx prisma generate
 
 RUN npm run postmig

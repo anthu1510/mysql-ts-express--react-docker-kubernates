@@ -12,7 +12,8 @@
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
     "mig": "del-cli ./prisma/migrations && prisma migrate dev --name init && prisma generate",
-    "postmig": "ts-node ./src/databases/seed.ts"
+    "postmig": "ts-node ./src/databases/seed.ts",
+    "env": "dotenv -v NODE_ENV=production && dotenv -p NODE_ENV"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +42,7 @@
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "del-cli": "^5.1.0",
+    "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
