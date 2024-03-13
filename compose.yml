@@ -31,6 +31,8 @@ services:
       - 5001:5000
     depends_on:
       - mysql
+    networks:
+      - api  
 
   web:
     container_name: web
@@ -42,6 +44,8 @@ services:
     depends_on:
       - mysql
       - api
+    networks:
+      - web
 
 networks:
   api:
