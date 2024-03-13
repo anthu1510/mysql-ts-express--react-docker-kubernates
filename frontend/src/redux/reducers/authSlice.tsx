@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-
 export interface IUser {
     userId: number;
     name: string;
@@ -21,7 +20,7 @@ export const authSlice = createSlice({
     reducers: {
       login: (state, action: PayloadAction<IUser>) => {
         state.user = action.payload;
-        },
+      },
     }
   });
   
